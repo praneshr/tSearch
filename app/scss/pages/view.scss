@@ -1,0 +1,117 @@
+.view{
+    .placeholder{
+      .line{
+        &:nth-child(1){
+          &:before{
+            content: " ";
+            background-color: $grey100;
+            animation: none;
+          }
+        }
+      }
+    }
+  .test-case{
+    padding: 50px 0px;
+    border-bottom: 1px solid $grey300;
+    &:first-child{
+      padding-top: 0;
+    }
+    .id{
+      display: inline-block;
+      width: initial;
+      padding: 10px;
+      border-left: 3px solid $primary;
+      font-weight: 600;
+      color: $primary;
+      &:after{
+        content: ':'
+      }
+    }
+    .title{
+      display: inline-block;
+      width: initial;
+      color: $primary;
+      font-weight: 600;
+    }
+    .description{
+      padding: 25px 0;
+      line-height: 25px;
+    }
+    .tags{
+      overflow-wrap: break-word;
+      span{
+        padding: 5px 10px;
+        color: $grey600;
+        border-radius: 400px;
+        border: 1px solid $grey200;
+        margin-right: 10px;
+        display: inline-block;
+        margin-bottom: 15px;
+      }
+    }
+  }
+  .no-match{
+    padding: 80px;
+    color: $grey800;
+    text-align: center;
+    span{
+      padding: 15px;
+    }
+  }
+  .tag-list{
+  .holder{
+    width: 255px;
+    padding: 20px;
+    border-left: 1px solid $grey300;
+    top: 60px;
+    padding-top: 40px;
+    margin-left: 20px;
+    position: fixed;
+    height: 100%;
+    &.fixed{
+    }
+    .heading{
+      padding: 10px;
+      padding-left: 0;
+      border-bottom: 1px solid $grey300;
+      // font-weight: 600;
+      color: $primary;
+      span{
+        border-bottom: 1px solid $primary;
+        padding-bottom: 10px;
+        padding-right: 10px;
+      }
+    }
+    .content{
+      padding: 20px 0px;
+      a{
+        color: $grey800;
+        background-color: $white;
+        text-decoration: none;
+        padding: 5px 8px;
+        margin-right: 10px;
+        margin-bottom: 15px;
+        display: inline-block;
+        border: 1px solid $grey300;
+        font-size: 14px;
+        border-radius: 4px;
+        transition: all .2s ease;
+        cursor: pointer;
+        &.selected{
+          color: $primary;
+          border: 1px solid rgba($primary,.1);
+          background-color: rgba($primary,.1);
+          &:hover{
+            color: $primary;
+            border: 1px solid rgba($primary,.1);
+          }
+        }
+        &:hover{
+          border-color: $primary;
+          color: $primary;
+        }
+      }
+    }
+  }
+}
+}

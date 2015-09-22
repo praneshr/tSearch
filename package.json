@@ -1,0 +1,54 @@
+{
+  "name": "test-management-tool",
+  "version": "1.0.0",
+  "description": "Lorem ipsum",
+  "main": "build/index.html",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/praneshr/Test-Management-Tool.git"
+  },
+  "author": "Pranesh Ravi <talkto@praneshravi.in> (http://praneshravi.in/)",
+  "dependencies": {
+    "autoprefixer-loader": "^1.1.0",
+    "body-parser": "^1.13.3",
+    "classnames": "^2.1.3",
+    "css-loader": "^0.9.1",
+    "events": "^1.0.2",
+    "express": "^4.13.0",
+    "extract-text-webpack-plugin": "^0.3.8",
+    "file-loader": "^0.8.4",
+    "flux": "^2.0.3",
+    "frame-ui": "^1.0.1",
+    "glob": "^5.0.14",
+    "jquery": "^2.1.4",
+    "jsx-loader": "^0.13.2",
+    "multer": "^1.0.3",
+    "node-jquery-param": "0.0.2",
+    "node-qs-serialization": "0.0.2",
+    "object-assign": "^3.0.0",
+    "page": "^1.6.3",
+    "path": "^0.11.14",
+    "promise": "^7.0.4",
+    "prompt": "^0.2.14",
+    "react": "^0.13.3",
+    "request": "^2.61.0",
+    "sass-loader": "^0.4.2",
+    "style-loader": "^0.8.3",
+    "the-vision": "^0.1.5",
+    "underscore": "^1.8.3",
+    "webpack": "^1.9.11"
+  },
+  "devDependencies": {
+    "es6-loader": "^0.2.0"
+  },
+  "bugs": {
+    "url": "https://github.com/praneshr/Test-Management-Tool/issues"
+  },
+  "homepage": "https://github.com/praneshr/Test-Management-Tool#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "test"
+  ]
+}
