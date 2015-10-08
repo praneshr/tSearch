@@ -1,28 +1,50 @@
 @import url(http://fonts.googleapis.com/css?family=Work+Sans:400,100);
+@import '../../node_modules/frame-ui/css/sass/_variables.scss';
+@import '../../node_modules/frame-ui/css/sass/_render-engine.scss';
+@import '../../node_modules/frame-ui/css/sass/frame.scss';
+@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_alerts.scss';
+@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_alerts.scss';
 @import './colors.scss';
 @import './variables.scss';
+@import url(https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900);
 
+@import './pages/index.scss';
+body{
+  background-color: $grey100;
+  font-family: 'Lato', sans-serif;
+}
+button{
+  box-sizing: content-box;
+}
+input{
+  box-sizing: border-box;
+}
 .frame{
-  //Common styles goes here
-}
+  .material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
 
-::-webkit-scrollbar {
-  width: 1px;
-}
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
 
-/* Track */
-::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-}
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background: $purple600;
-}
-::-webkit-scrollbar-thumb:window-inactive {
-  background: $grey100;
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+  }
 }

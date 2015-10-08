@@ -12,7 +12,20 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(Express.static('build'));
 
-//Server code goes here
+app.get('/query',function(req, res){
+  request(remoteServer+config.getResults+req.query.q,function(error, response, body){
+    if (!error && response.statusCode == 200) {
+      res.send(body)
+    }else{
+      console.log('error');
+    }
+  })
+});
+
+app.get('/*' , function(req, res){
+  var file = path.join(__dirname, '/build', 'index.html');
+  res.sendFile(file);
+});
 
 
 app.listen(9090, function () {

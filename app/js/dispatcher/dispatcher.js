@@ -9,7 +9,9 @@ var Flux = require('flux');
 var assign = require('object-assign');
 
 var AppDispatcher = assign(new Flux.Dispatcher(), {
- //Dispatcher code goes here
+ getResults: function(action){
+  this.dispatch(action);
+ }
 });
 
 module.exports = AppDispatcher;

@@ -15,7 +15,12 @@ var DefaultLayout = require('../DefaultLayout.jsx');
     );
   };
 
-  //Routing code goes here
+Page('/',function(context) {
+  render({pageName:'Index'});
+});
+Page('/search/:query',function(context) {
+  render({pageName:'Index',query: context.params.query});
+})
 
 
   Page();
