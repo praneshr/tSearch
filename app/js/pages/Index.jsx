@@ -1,6 +1,7 @@
 var React = require('react');
 var Page = require('page');
 var cn = require('classnames')
+var $ = require('jquery');
 
 var searchApi = require('../api/get-results-api');
 var searchStore = require('../stores/get-result-store');
@@ -9,19 +10,31 @@ var Index = React.createClass({
   getInitialState: function() {
     return {
       input: this.props.details.query ? this.props.details.query : '',
-      blur: true
+      visible: false,
+      searchTerm: this.props.details.query ? true : false
     };
   },
   componentDidMount: function() {
+    var _this = this;
     this.selectAndFoucs();
     searchStore.addChangeListener(this.onResults);
-    this.props.details.query && this.callApi();
-    this.setState({
-      blur: false
+    this.props.details.query && this.callApi(this.props.details.query);
+    $(document).ready(function(){
+      $("img").load(function(){
+        _this.setState({
+          visible: true
+        });
+      });
     });
   },
   componentWillReceiveProps: function(nextProps) {
     this.selectAndFoucs();
+    location.pathname === '/' ? this.setState({searchTerm: false}) : this.setState({searchTerm: true});
+    nextProps.details.query && this.callApi(nextProps.details.query);
+    this.setState({
+      input: nextProps.details.query,
+      searchTerm: location.pathname === '/' ? false : true
+    });
   },
   selectAndFoucs: function() {
     React.findDOMNode(this.refs.input).focus();
@@ -29,18 +42,19 @@ var Index = React.createClass({
   },
   onUpdate: function(event){
     React.findDOMNode(this.refs.input).focus();
+    console.log(event.target.value.length === 0);
+    var flag = event.target.value.length === 0;
     this.setState({
-      input: event.target.value
+      input: event.target.value,
     });
   },
-  callApi: function(){
-    searchApi.getResults(this.state.input);
+  callApi: function(q){
+    searchApi.getResults(q);
   },
   submit: function(event) {
     if(this.state.input.length > 0){
-      Page('/search/'+this.state.input);
-      this.callApi();
       this.selectAndFoucs();
+      Page('/search/'+this.state.input);
     }
   },
   keyPress: function(event){
@@ -53,11 +67,19 @@ var Index = React.createClass({
   render: function() {
     return (
       <div className="search-home" onKeyPress={this.keyPress}>
-        <div className={cn("bg-image",{'no-blur': !this.state.blur})} style={{backgroundImage: 'url(https://unsplash.it/'+window.innerWidth+'/'+window.innerHeight+'?random)'}}></div>
-        <div className="field">
+        <div className={cn("bg-image",{top: this.state.searchTerm})} style={{height: window.innerHeight}}>
+        <div className="black-drop"></div>
+          <img id="spalsh" className={cn('image',{'visible': this.state.visible, top: this.state.searchTerm})} src={'https://unsplash.it/'+ window.innerWidth+'/'+window.innerHeight+'?random'}/>
+        </div>
+        <div className={cn("field",{top: this.state.searchTerm})}>
           <p className="brand">Hello<span id="dot">.</span></p>
-          <input className="lr-8" type="text" onChange={this.onUpdate} defaultValue={this.props.details.query ? this.props.details.query : this.state.input} ref="input"/>
+          <input className="lr-8" type="text" onChange={this.onUpdate} value={this.state.input} ref="input"/>
           <button onClick={this.submit} ref="button"><i className="material-icons">search</i></button>
+        </div>
+        <div className={cn("loader", {none: this.state.visible})}>
+          <svg className="circular">
+            <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke-miterlimit="10"/>
+          </svg>
         </div>
       </div>
     );

@@ -22,6 +22,7 @@
     "frame-ui": "^1.0.1",
     "get-urls": "^5.0.0",
     "glob": "^5.0.14",
+    "imagesloaded": "^3.1.8",
     "jquery": "^2.1.4",
     "jsx-loader": "^0.13.2",
     "multer": "^1.0.3",
