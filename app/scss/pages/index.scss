@@ -3,7 +3,7 @@
   .bg-image{
     width: 100%;
     position: fixed;
-    z-index: -1;
+    z-index: 10;
     background-color: $black;
     top: 0;
     left: 0;
@@ -27,10 +27,14 @@
       }
       &.top{
         top: -200px;
+        pointer-events: none;
       }
     }
     &.top{
       height: 300px !important;
+      .black-drop{
+        height: 300px;
+      }
     }
     .black-drop{
       position: fixed;
@@ -40,11 +44,13 @@
       left: 0;
       z-index: +1;
       background-color: rgba(0,0,0,0.6);
+      transition: all .7s cubic-bezier(.55,0,.1,1);
     }
   }
   .field{
     position: fixed;
     top: 50%;
+    z-index: 20;
     margin-top: -300px;
     width: 50%;
     left: 50%;
@@ -102,18 +108,20 @@
 }
 .loader {
   position: fixed;
-  bottom: 100px;
+  bottom: 0;
+  right: 0;
   margin: 0px auto;
-  width: 900px;
+  width: 100px;
   height: 100px;
   opacity: 1;
+  z-index: 100;
   transition: all .5s linear;
   &.none{
     opacity: 0;
   }
 }
 .circular {
-  zoom: 2;
+  zoom: .7;
  animation: rotate 2s linear infinite;
  height: 100px;
  position: relative;

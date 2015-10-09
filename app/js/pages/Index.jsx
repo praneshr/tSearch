@@ -6,12 +6,15 @@ var $ = require('jquery');
 var searchApi = require('../api/get-results-api');
 var searchStore = require('../stores/get-result-store');
 
+var Result = require('./Result.jsx');
+
 var Index = React.createClass({
   getInitialState: function() {
     return {
       input: this.props.details.query ? this.props.details.query : '',
       visible: false,
-      searchTerm: this.props.details.query ? true : false
+      searchTerm: this.props.details.query ? true : false,
+      result: false
     };
   },
   componentDidMount: function() {
@@ -62,9 +65,13 @@ var Index = React.createClass({
       React.findDOMNode(this.refs.button).click();
   },
   onResults: function(){
-
+    this.setState({
+      result: true
+    });
   },
   render: function() {
+    var response = searchStore.getResults();
+    console.log(response);
     return (
       <div className="search-home" onKeyPress={this.keyPress}>
         <div className={cn("bg-image",{top: this.state.searchTerm})} style={{height: window.innerHeight}}>
@@ -78,9 +85,10 @@ var Index = React.createClass({
         </div>
         <div className={cn("loader", {none: this.state.visible})}>
           <svg className="circular">
-            <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke-miterlimit="10"/>
+            <circle className="path" cx="50" cy="50" r="20" fill="none" strokeWidth="2" stroke-miterlimit="10"/>
           </svg>
         </div>
+        {this.state.result && this.state.visible && <Result data={response} />}
       </div>
     );
   }

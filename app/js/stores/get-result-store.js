@@ -29,11 +29,11 @@ var getResults = assign({}, EventEmitter.prototype, {
     Results = {};
   },
 
-  setTestCase: function(data){
+  setResults: function(data){
     Results = data || {}
   },
 
-  getNewTestcase: function(){
+  getResults: function(){
     return Results;
   },
 });
@@ -43,7 +43,7 @@ AppDispatcher.register(function(payload) {
 
   switch(action){
     case ActionsList.GET_RESULTS:
-      getResults.setTestCase(payload.data);
+      getResults.setResults(payload.data);
       break;
 
     default:
