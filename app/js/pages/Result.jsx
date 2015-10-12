@@ -6,7 +6,7 @@ var Result = React.createClass({
 
   render: function() {
     var data = this.props.data;
-    var results = data.result.map(function(r, i){
+    var results = data.result.reverse().map(function(r, i){
       var tweet = r.tweet;
       var user = tweet.split(' - ')[0];
       tweet = tweet.split(' - ')[1];
