@@ -24,6 +24,7 @@ input{
   box-sizing: border-box;
 }
 .frame{
+  max-width: 1800px;
   ::selection{
     background-color: rgba($greenA700,0.7);
     color: $white;

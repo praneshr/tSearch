@@ -4,14 +4,25 @@
   background-color: $white;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   border-radius: 4px;
+  .first,.second,.third{
+    padding: 20px;
+    box-sizing: border-box;
+  }
   .result{
-    min-height: 200px;
     .bg{
       width: 100%;
-      height: 350px;
-      position: relative;
-      background-repeat: no-repeat;
-      background-size: cover;
+      margin-bottom: 20px;
+      .text{
+        padding: 20px;
+        background-color: $white;
+        .hashtag{
+          text-transform: uppercase;
+          color: $greenA700;
+        }
+      }
+      img{
+        width: 100%;
+      }
     }
   }
 }
