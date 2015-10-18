@@ -81,6 +81,14 @@ app.get('/query',function(req, res){
                     }
                   }
                 }
+                else{
+                  temp.imgUrl = 'none';
+                  if(i< (body.count - 1)){
+                    i++;
+                    rply.results.push(temp);
+                    fetchDetails();
+                  }
+                }
               });
             });
           }
