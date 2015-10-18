@@ -1,6 +1,4 @@
 module.exports ={
-  host: 'http://192.168.0.46',
-  port: '8080',
-
+  host: 'https://mighty-citadel-5476.herokuapp.com',
   getResults: '/search?q='
 }

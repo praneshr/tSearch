@@ -36,7 +36,8 @@ var Index = React.createClass({
     nextProps.details.query && this.callApi(nextProps.details.query);
     this.setState({
       input: nextProps.details.query,
-      searchTerm: location.pathname === '/' ? false : true
+      searchTerm: location.pathname === '/' ? false : true,
+      result: false
     });
   },
   selectAndFoucs: function() {
@@ -79,7 +80,7 @@ var Index = React.createClass({
           <img id="spalsh" className={cn('image',{'visible': this.state.visible, top: this.state.searchTerm})} src={'https://unsplash.it/'+ window.innerWidth+'/'+window.innerHeight+'?random'}/>
         </div>
         <div className={cn("field",{top: this.state.searchTerm})}>
-          <p className="brand">Hello<span id="dot">.</span></p>
+          <p className="brand">Petch<span id="dot">.</span></p>
           <input className="lr-8" type="text" onChange={this.onUpdate} value={this.state.input} ref="input"/>
           <button onClick={this.submit} ref="button"><i className="material-icons">search</i></button>
         </div>
@@ -88,7 +89,7 @@ var Index = React.createClass({
             <circle className="path" cx="50" cy="50" r="20" fill="none" strokeWidth="2" stroke-miterlimit="10"/>
           </svg>
         </div>
-        {this.state.result && this.state.visible && <Result data={response} />}
+        {this.state.result && <Result data={response} />}
       </div>
     );
   }

@@ -12,8 +12,6 @@ module.exports = {
     ajax && ajax.abort();
     ajax = $.get('/query', {q:query})
                 .done(function(data){
-                  var data = JSON.parse(data);
-                  console.log(data);
                   getResults.getResults(data);
                 });
   }
