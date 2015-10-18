@@ -53,9 +53,12 @@
   },
   "homepage": "https://github.com/praneshr/Test-Management-Tool#readme",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node_modules/.bin/webpack && node server.js"
   },
   "keywords": [
     "test"
-  ]
+  ],
+  "engines": {
+    "node": "0.12.7"
+  }
 }
