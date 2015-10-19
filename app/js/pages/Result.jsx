@@ -5,6 +5,7 @@ var $ = require('jquery');
 var Result = React.createClass({
 
   render: function() {
+    var temp = 0;
     console.log("Result Shown");
     var data = this.props.data;
     var one = [];
@@ -22,14 +23,20 @@ var Result = React.createClass({
         </div>
       </div>;
       i = i+1;
-      if(i%3===0){
-        three.push(template);
-      } else if(i%2 ===0){
+      if(temp === 0){
+        one.push(template);
+        temp = 1;
+      } else if(temp === 1){
         two.push(template);
-      } else{
-        one.push(template)
+        temp = 2;
+      } else if(temp === 2){
+        three.push(template);
+        temp = 0;
       }
     });
+    console.log(one)
+    console.log(two)
+    console.log(three)
     return (
       <div className="results">
         <div className="lr-4 md-4 sm-12 same-row first">{one}</div>
