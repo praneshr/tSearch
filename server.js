@@ -16,6 +16,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(Express.static('build'));
 
+var port = process.env.PORT || 8080;
+
 var resolver = new ImageResolver();
 resolver.register(new ImageResolver.FileExtension());
 resolver.register(new ImageResolver.MimeType());
@@ -64,7 +66,7 @@ app.get('/query',function(req, res){
             } else
             expandUrl.expand(urlArray[j].toString(),function(err,url){
               console.log(i,'--',j,'--------',url);
-              tUrl.test(url) ? temp.imgUrl = 'none' : 
+              tUrl.test(url) ? temp.imgUrl = 'none' :
               resolver.resolve(urlArray[j].toString(),function(result){
                 if(result){
                   temp.imgUrl = result.image;
@@ -117,6 +119,6 @@ app.get('/*' , function(req, res){
 });
 
 
-app.listen(9090, function () {
-  console.log('http://localhost:9090');
+app.listen(port, function () {
+  console.log('http://localhost:'+port);
 });
