@@ -97,7 +97,7 @@ app.get('/query',function(req, res){
           getImgUrl();
         } else {
           temp.imgUrl = r.imageUrl;
-          if(i< (body.count - 1)){
+          if(i< (body.totalCount - 1)){
             i++;
             rply.results.push(temp);
             fetchDetails();
