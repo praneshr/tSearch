@@ -2,22 +2,28 @@
   margin-top: 350px;
   text-align: left;
   background-color: $white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   border-radius: 4px;
   .first,.second,.third{
     padding: 20px;
     box-sizing: border-box;
   }
   .result{
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     .bg{
       width: 100%;
-      margin-bottom: 20px;
+      margin-bottom: 40px;
       .text{
+        font-family: 'Biryani', sans-serif !important;
         padding: 20px;
+        font-size: 22px;
+        color: $grey900;
         background-color: $white;
-        .hashtag{
-          text-transform: uppercase;
-          color: $greenA700;
+        .hashtag,.at-link{
+          color: $greenA700 !important;
+          text-decoration: none;
+          &:hover,&:active,&:visited{
+            text-decoration: none;
+          }
         }
       }
       img{

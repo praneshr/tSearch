@@ -31,11 +31,13 @@ app.get('/query',function(req, res){
   var rply = {};
   var i = 0;
   var j = 0;
+  var count;
   var tUrl = /https?:\/\/twitter\.com\/(#!\/)?[a-zA-Z0-9_]+/;
   request(remoteServer+config.getResults+req.query.q,function(error, response, body){
     if (!error && response.statusCode == 200) {
       body = JSON.parse(body);
-      rply.count = body.count;
+      count = body.totalCount > 15 ? 15 : body.totalCount;
+      rply.totalCount = count;
       rply.results = [];
       function sendResponse(){
         simple_timer.stop('Search Timer', true);
@@ -44,6 +46,9 @@ app.get('/query',function(req, res){
         res.json(rply);
       }
       function fetchDetails(){
+        if(count === 0){
+          return sendResponse();
+        } 
         console.log('number----------------------',i);
         var temp = {};
         var r = body.results[i];
@@ -55,8 +60,9 @@ app.get('/query',function(req, res){
         if(r.imageUrl === 'none'){
           function getImgUrl(){
             if(urlArray.length === 0){
+              console.log('Image None');
               temp.imgUrl = 'none';
-              if(i< (body.count - 1)){
+              if(i< (count - 1)){
                 i++;
                 rply.results.push(temp);
                 fetchDetails();
@@ -74,7 +80,7 @@ app.get('/query',function(req, res){
                     j++;
                     getImgUrl();
                   } else {
-                    if(i< (body.count - 1)){
+                    if(i< (count - 1)){
                       i++;
                       rply.results.push(temp);
                       fetchDetails();
@@ -85,7 +91,7 @@ app.get('/query',function(req, res){
                 }
                 else{
                   temp.imgUrl = 'none';
-                  if(i< (body.count - 1)){
+                  if(i< (count - 1)){
                     i++;
                     rply.results.push(temp);
                     fetchDetails();
@@ -97,7 +103,7 @@ app.get('/query',function(req, res){
           getImgUrl();
         } else {
           temp.imgUrl = r.imageUrl;
-          if(i< (body.totalCount - 1)){
+          if(i< (count - 1)){
             i++;
             rply.results.push(temp);
             fetchDetails();

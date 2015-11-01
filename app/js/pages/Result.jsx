@@ -11,9 +11,11 @@ var Result = React.createClass({
     var one = [];
     var two = [];
     var three =[];
+    var four = [];
     var _this = this;
     var results = data.results.map(function(r, i){
-      var tweet = '<p>'+r.tweet.replace(/(#[a-zA-Z0-9_]+)/g,'<span class="hashtag">$1</span>')+'</p>';
+      var tweet = '<p>'+r.tweet.replace(/([#][a-zA-Z0-9_]+)/g,'<span class="hashtag">$1</span>')+'</p>';
+      tweet = tweet.replace(/([@][a-zA-Z0-9_]+)/g,'<a target="_blank" href="https://twitter.com/$1"class="at-link">$1</a>');
       var  template = <div className="lr-12 md-12 sm-12">
         <div className="result">
           <div className="bg">
@@ -31,17 +33,18 @@ var Result = React.createClass({
         temp = 2;
       } else if(temp === 2){
         three.push(template);
+        temp = 3;
+      } else if(temp === 3){
+        four.push(template);
         temp = 0;
       }
     });
-    console.log(one)
-    console.log(two)
-    console.log(three)
     return (
       <div className="results">
-        <div className="lr-4 md-4 sm-12 same-row first">{one}</div>
-        <div className="lr-4 md-4 sm-12 same-row second">{two}</div>
-        <div className="lr-4 md-4 sm-12 same-row third">{three}</div>
+        <div className="lr-3 md-3 sm-12 same-row first">{one}</div>
+        <div className="lr-3 md-3 sm-12 same-row second">{two}</div>
+        <div className="lr-3 md-3 sm-12 same-row third">{three}</div>
+        <div className="lr-3 md-3 sm-12 same-row third">{four}</div>
       </div>
     );
   }
