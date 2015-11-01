@@ -74,7 +74,9 @@ app.get('/query',function(req, res){
               console.log(i,'--',j,'--------',url);
               tUrl.test(url) ? temp.imgUrl = 'none' :
               resolver.resolve(urlArray[j].toString(),function(result){
+                console.log('r--------->',result);
                 if(result){
+                  console.log('insid thissss');
                   temp.imgUrl = result.image;
                   if(j < (urlArray.length - 1)){
                     j++;
@@ -90,12 +92,15 @@ app.get('/query',function(req, res){
                   }
                 }
                 else{
+                  console.log('falling into else');
                   temp.imgUrl = 'none';
                   if(i< (count - 1)){
                     i++;
                     rply.results.push(temp);
                     fetchDetails();
-                  }
+                  } else{
+                    sendResponse();
+                }
                 }
               });
             });
