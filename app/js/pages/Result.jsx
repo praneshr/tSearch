@@ -41,7 +41,7 @@ var Result = React.createClass({
     });
     return (
       <div className="results">
-        <div className="count">{data.count} results found for <span id="query">"{data.query}"</span></div>
+        <div className="count">Found {data.count} results found for <span id="query">"{data.query}"</span></div>
         <div className="lr-3 md-3 sm-12 same-row first">{one}</div>
         <div className="lr-3 md-3 sm-12 same-row second">{two}</div>
         <div className="lr-3 md-3 sm-12 same-row third">{three}</div>
