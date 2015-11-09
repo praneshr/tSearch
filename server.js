@@ -24,9 +24,6 @@ app.use(Express.static('build'));
 
 var port = process.env.PORT || 8080;
 
-
-var MetaInspector = require('node-metainspector');
-var client = new MetaInspector("https://t.co/3jXbhBV4R2", {});
 app.get('/query',function(req, res){
   simple_timer.start('Search Timer', true);
   console.log('Hitting API Server');
