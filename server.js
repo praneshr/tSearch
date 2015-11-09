@@ -30,7 +30,7 @@ app.get('/query',function(req, res){
   var rply = {};
   var tUrl = /https?:\/\/twitter\.com\/(#!\/)?[a-zA-Z0-9_]+/;
   rply.query = req.query.q;
-  rply.results = []
+  rply.results = [];
   var preprocess = await('preprocess');
   var resolveUrls = await('resolveUrls');
   var resolveImages = await('resolveImages');
@@ -40,7 +40,8 @@ app.get('/query',function(req, res){
     if (!error && response.statusCode == 200) {
       body = JSON.parse(body);
       var resultCount = body.results.length;
-      rply.count = resultCount;
+      rply.count = body.totalCount;
+      rply.relatedTags = body.relatedTags;
       function preprocess(i){
         if(i === resultCount){
           return res.send(rply);

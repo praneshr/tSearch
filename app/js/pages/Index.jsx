@@ -19,19 +19,22 @@ var Index = React.createClass({
   },
   componentDidMount: function() {
     var _this = this;
-    this.selectAndFoucs();
     searchStore.addChangeListener(this.onResults);
     this.props.details.query && this.callApi(this.props.details.query);
+    this.selectAndFoucs();
     $(document).ready(function(){
       $("img").load(function(){
         _this.setState({
           visible: true
         });
       });
-    });
+    })
+    .on('keypress',function(event) {
+      var flag = $('input').is(':focus');
+      !flag && _this.selectAndFoucs();
+    })
   },
   componentWillReceiveProps: function(nextProps) {
-    this.selectAndFoucs();
     location.pathname === '/' ? this.setState({searchTerm: false}) : this.setState({searchTerm: true});
     nextProps.details.query && this.callApi(nextProps.details.query);
     this.setState({
@@ -57,7 +60,6 @@ var Index = React.createClass({
   },
   submit: function(event) {
     if(this.state.input.length > 0){
-      this.selectAndFoucs();
       Page('/search/'+this.state.input);
     }
   },
@@ -75,6 +77,11 @@ var Index = React.createClass({
     console.log(response);
     return (
       <div className="search-home" onKeyPress={this.keyPress}>
+      <div className={cn("search-loader",{hide: this.state.result})}>
+        <svg className="circular">
+            <circle className="path" cx="50" cy="50" r="20" fill="none" strokeWidth="2" stroke-miterlimit="10"/>
+          </svg>
+      </div>
         <div className={cn("bg-image",{top: this.state.searchTerm})} style={{height: window.innerHeight}}>
         <div className="black-drop"></div>
           <img id="spalsh" className={cn('image',{'visible': this.state.visible, top: this.state.searchTerm})} src={'https://source.unsplash.com/daily/'}/>
