@@ -1,8 +1,15 @@
 .results{
-  margin-top: 350px;
+  margin-top: 110px;
   text-align: left;
-  background-color: $white;
   border-radius: 4px;
+  .count{
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+    #query{
+      font-weight: 600;
+    }
+  }
   .first,.second,.third{
     padding: 20px;
     box-sizing: border-box;

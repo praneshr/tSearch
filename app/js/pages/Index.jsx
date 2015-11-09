@@ -77,9 +77,12 @@ var Index = React.createClass({
       <div className="search-home" onKeyPress={this.keyPress}>
         <div className={cn("bg-image",{top: this.state.searchTerm})} style={{height: window.innerHeight}}>
         <div className="black-drop"></div>
-          <img id="spalsh" className={cn('image',{'visible': this.state.visible, top: this.state.searchTerm})} src={'https://unsplash.it/'+ window.innerWidth+'/'+window.innerHeight+'?random'}/>
+          <img id="spalsh" className={cn('image',{'visible': this.state.visible, top: this.state.searchTerm})} src={'https://source.unsplash.com/daily/'}/>
         </div>
         <div className={cn("field",{top: this.state.searchTerm})}>
+          <div className="small-logo">
+            <p className="brand-small">Petch<span id="dot-small">.</span></p>
+          </div>
           <p className="brand">Petch<span id="dot">.</span></p>
           <input className="lr-8" type="text" onChange={this.onUpdate} value={this.state.input} ref="input"/>
           <button onClick={this.submit} ref="button"><i className="material-icons">search</i></button>
