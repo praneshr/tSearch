@@ -17,6 +17,9 @@
 body{
   background-color: $grey100;
   font-family: 'Lato', sans-serif;
+  .hide{
+    display: none;
+  }
 }
 button{
   box-sizing: content-box;

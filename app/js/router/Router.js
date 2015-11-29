@@ -18,8 +18,8 @@ var DefaultLayout = require('../DefaultLayout.jsx');
 Page('/',function(context) {
   render({pageName:'Index'});
 });
-Page('/search/:query',function(context) {
-  render({pageName:'Index',query: context.params.query});
+Page('/search/:query/:page',function(context) {
+  render({pageName:'Index',query: context.params.query,page:context.params.page});
 })
 
 

@@ -43,6 +43,7 @@
     "simple-timer": "0.0.5",
     "style-loader": "^0.8.3",
     "the-vision": "^0.1.5",
+    "timeago": "^1.4.3",
     "underscore": "^1.8.3",
     "webpack": "^1.9.11"
   },

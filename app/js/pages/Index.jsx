@@ -18,9 +18,10 @@ var Index = React.createClass({
     };
   },
   componentDidMount: function() {
+    console.log('mounted')
     var _this = this;
     searchStore.addChangeListener(this.onResults);
-    this.props.details.query && this.callApi(this.props.details.query);
+    this.props.details.query && this.callApi(this.props.details.query, this.props.details.page);
     this.selectAndFoucs();
     $(document).ready(function(){
       $("img").load(function(){
@@ -35,8 +36,9 @@ var Index = React.createClass({
     })
   },
   componentWillReceiveProps: function(nextProps) {
+    console.log('crp',nextProps.details.page)
     location.pathname === '/' ? this.setState({searchTerm: false}) : this.setState({searchTerm: true});
-    nextProps.details.query && this.callApi(nextProps.details.query);
+    nextProps.details.query && this.callApi(nextProps.details.query, nextProps.details.page);
     this.setState({
       input: nextProps.details.query,
       searchTerm: location.pathname === '/' ? false : true,
@@ -49,18 +51,17 @@ var Index = React.createClass({
   },
   onUpdate: function(event){
     React.findDOMNode(this.refs.input).focus();
-    console.log(event.target.value.length === 0);
     var flag = event.target.value.length === 0;
     this.setState({
       input: event.target.value,
     });
   },
-  callApi: function(q){
-    searchApi.getResults(q);
+  callApi: function(q, p){
+    searchApi.getResults(q,parseInt(p));
   },
   submit: function(event) {
     if(this.state.input.length > 0){
-      Page('/search/'+this.state.input);
+      Page('/search/'+this.state.input+'/1');
     }
   },
   keyPress: function(event){
@@ -74,7 +75,6 @@ var Index = React.createClass({
   },
   render: function() {
     var response = searchStore.getResults();
-    console.log(response);
     return (
       <div className="search-home" onKeyPress={this.keyPress}>
       <div className={cn("search-loader",{hide: this.state.result})}>

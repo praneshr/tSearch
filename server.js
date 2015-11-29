@@ -30,15 +30,12 @@ app.get('/query',function(req, res){
   var rply = {};
   var tUrl = /https?:\/\/twitter\.com\/(#!\/)?[a-zA-Z0-9_]+/;
   rply.query = req.query.q;
+  rply.page = req.query.page
   rply.results = [];
-  var preprocess = await('preprocess');
-  var resolveUrls = await('resolveUrls');
-  var resolveImages = await('resolveImages');
-  var imageStart = await('imageStart');
-  var longUrlArray = [];
-  request(remoteServer+config.getResults+req.query.q+config.auth,function(error, response, body){
+  request(remoteServer+config.getResults+req.query.q+config.auth+config.page+req.query.page,function(error, response, body){
     if (!error && response.statusCode == 200) {
-      body = JSON.parse(body);
+      body = JSON.parse(body)
+      rply.pageCount = body.pageCount;
       var resultCount = body.results.length;
       rply.count = body.totalCount;
       rply.relatedTags = body.relatedTags;
@@ -46,60 +43,21 @@ app.get('/query',function(req, res){
         if(i === resultCount){
           return res.send(rply);
         }
+        console.log(i)
         var temp ={};
         var obj = body.results[i];
         temp.tweet = obj.result.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
         temp.time = obj.myId.time;
+        temp.imgUrl = obj.imageUrl;
         var urls = getUrls(obj.result);
-        var urlsLength = urls.length;
-        if(urls.length === 0){
-          temp.links = 'none';
-          console.log('no-link');
-          imageStart.keep('imageStart');
-        } else {
-          function resolveUrl(i){
-            var link = urls[i]
-            expandUrl.expand(link, function(err, longUrl){
-              console.log(i,urlsLength);
-              if(!tUrl.test(longUrl))
-                longUrlArray.push(longUrl);
-              if((i+1)>= urlsLength){
-                resolveUrls.keep('resolveUrls');
-              } else {
-                if(i< urls.length)
-                  resolveUrl(i+1);
-              }
-            });
-          }
-          resolveUrl(0)
+        temp.urls = urls;
+        rply.results.push(temp)
+        if(i<resultCount){
+          console.log('in')
+          preprocess(i+1)
         }
-        resolveUrls.onkeep(function(got){
-          console.log(longUrlArray);
-          temp.links = longUrlArray;
-          imageStart.keep('imageStart');
-        });
-        imageStart.onkeep(function(){
-          console.log('starting img');
-          if(obj.imageUrl !== 'none' || longUrlArray.length === 0){
-            temp.imgUrl = obj.imageUrl;
-            resolveImages.keep('resolveImages');
-          } else {
-            resolver.resolve((longUrlArray[0]).toString(),function(result){
-              if(result){
-                temp.imgUrl = result.image;
-                resolveImages.keep('resolveImages');
-              } else {
-                temp.imgUrl = 'none';
-                resolveImages.keep('resolveImages');
-              }
-            });
-          }
-        })
-        resolveImages.onkeep(function(){
-          rply.results.push(temp);
-          preprocess(i+1);
-        })
       }
+        
       preprocess(0);
     }
   });

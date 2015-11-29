@@ -79,7 +79,7 @@
     margin-left: -465px;
     transition: all .5s cubic-bezier(.55,0,.1,1);
     &.top{
-      top: -130px;
+      top: -127px;
       margin-top: 0;
       .small-logo{
         top: 0px;
@@ -150,6 +150,7 @@
 }
 .loader {
   position: fixed;
+  z-index: -1;
   bottom: 0;
   right: 0;
   margin: 0px auto;

@@ -1,12 +1,13 @@
 var React = require('react');
 var _ = require('underscore');
 var $ = require('jquery');
+var cn = require('classnames');
+var timeago = require('timeago');
 
 var Result = React.createClass({
 
   render: function() {
     var temp = 0;
-    console.log("Result Shown");
     var data = this.props.data;
     var one = [];
     var two = [];
@@ -14,9 +15,10 @@ var Result = React.createClass({
     var four = [];
     var _this = this;
     var dummyTag = data.relatedTags.indexOf('ryueidhflmcnxb2345');
-    data.relatedTags.splice(dummyTag,1);
+    var relatedTags = data.relatedTags;
+    relatedTags.splice(dummyTag,1);
     var related = data.relatedTags.map(function(tag, i) {
-      return <a href={"/search/"+tag}><div className="r-tag">{tag}</div></a>
+      return <a href={"/search/"+tag+"/1"}><div className="r-tag">{tag}</div></a>
     })
     var results = data.results.map(function(r, i){
       var tweet = '<p>'+r.tweet.replace(/([#][a-zA-Z0-9_]+)/g,'<span class="hashtag">$1</span>')+'</p>';
@@ -26,6 +28,7 @@ var Result = React.createClass({
       <div className="bg">
       {r.imgUrl !== 'none' ? <img src={r.imgUrl} alt=""/>:''}
       <div className="text" dangerouslySetInnerHTML={{__html: tweet}}></div>
+      <div className="time">{$.timeago(r.time)}</div>
       </div>
       </div>
       </div>;
@@ -46,14 +49,24 @@ var Result = React.createClass({
     });
     return (
       <div className="results">
-      <div className="count">Found {data.count} results found for <span id="query">"{data.query}"</span></div>
-      <div className="related row">{related.length !== 0 && "Related topics:"}{related}</div>
-      <div className="row">
-      <div className="lr-3 md-3 sm-12 same-row first">{one}</div>
-      <div className="lr-3 md-3 sm-12 same-row second">{two}</div>
-      <div className="lr-3 md-3 sm-12 same-row third">{three}</div>
-      <div className="lr-3 md-3 sm-12 same-row third">{four}</div>
-      </div>
+        <div className="count">Found {data.count} results found for <span id="query">"{data.query}"</span></div>
+        <div className="related row">{related.length !== 0 && "Related topics:"}{related}</div>
+        <div className="row">
+          <div className="lr-3 md-3 sm-12 same-row first">{one}</div>
+          <div className="lr-3 md-3 sm-12 same-row second">{two}</div>
+          <div className="lr-3 md-3 sm-12 same-row third">{three}</div>
+          <div className="lr-3 md-3 sm-12 same-row third">{four}</div>
+        </div>
+        <div className={cn("row",{hide: data.results.length <= 0})}>
+          <div className="page">
+          <a href={"/search/"+data.query+"/"+(parseInt(data.page) - 1)} className={cn({'hide': this.props.data.page == 1})}>
+            <i className="material-icons">chevron_left</i>
+          </a>
+          <a href={"/search/"+data.query+"/"+(parseInt(data.page) + 1)} className={cn({'hide': !((this.props.data.page + 1) * 15) > data.count })}>
+            <i className="material-icons">chevron_right</i>
+          </a>
+          </div>
+        </div>
       </div>
       );
   }
