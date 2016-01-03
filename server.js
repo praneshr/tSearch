@@ -43,17 +43,16 @@ app.get('/query',function(req, res){
         if(i === resultCount){
           return res.send(rply);
         }
-        console.log(i)
         var temp ={};
         var obj = body.results[i];
         temp.tweet = obj.result.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
         temp.time = obj.myId.time;
         temp.imgUrl = obj.imageUrl;
+        temp.sourceUrl = obj.profileUrl
         var urls = getUrls(obj.result);
         temp.urls = urls;
         rply.results.push(temp)
         if(i<resultCount){
-          console.log('in')
           preprocess(i+1)
         }
       }
