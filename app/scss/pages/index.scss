@@ -84,6 +84,10 @@
       .small-logo{
         top: 0px;
       }
+      .hint{
+        margin-top: -300px;
+        opacity: 0;
+      }
     }
     .brand{
       text-shadow: 0px 0px 5px rgba(0, 0, 0, .5);
@@ -117,6 +121,15 @@
       vertical-align: bottom;
       border-radius: 0px 4px 4px 0px;
       background-color: rgba($greenA700,.9);
+    }
+    .hint{
+      color: #fff;
+      margin-top: 50px;
+      font-weight: 300;
+      position: relative;
+      z-index: -1;
+      opacity: 0.5;
+      transition: all .5s cubic-bezier(.55,0,.1,1);
     }
   }
 }
