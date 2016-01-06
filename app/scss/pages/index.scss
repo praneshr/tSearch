@@ -128,8 +128,11 @@
       font-weight: 300;
       position: relative;
       z-index: -1;
-      opacity: 0.5;
+      opacity: 0.7;
       transition: all .5s cubic-bezier(.55,0,.1,1);
+      #bold{
+        font-weight: 600;
+      }
     }
   }
 }

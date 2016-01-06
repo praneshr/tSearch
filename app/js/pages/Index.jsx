@@ -93,7 +93,10 @@ var Index = React.createClass({
           <p className="brand">Petch<span id="dot">.</span></p>
           <input className="lr-8" type="text" onChange={this.onUpdate} value={this.state.input} ref="input"/>
           <button onClick={this.submit} ref="button"><i className="material-icons">search</i></button>
-          <div className="hint">Search for latest news using tags.</div>
+          <div className="hint">
+            <span id="bold">Search anything. </span>
+            <span>We care for you to get latest information from trusted sources. (Eg: India, Modi, etc)</span>
+          </div>
         </div>
         <div className={cn("loader", {none: this.state.visible})}>
           <svg className="circular">
