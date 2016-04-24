@@ -32,31 +32,34 @@ app.get('/query',function(req, res){
   rply.query = req.query.q;
   rply.page = req.query.page
   rply.results = [];
-  request(remoteServer+config.getResults+req.query.q+config.auth+config.page+req.query.page,function(error, response, body){
+  //request(remoteServer+config.getResults+req.query.q+config.auth+config.page+req.query.page,function(error, response, body){
+    request(remoteServer+config.getResults+req.query.q + "/" + req.query.page ,function(error, response, body){
     if (!error && response.statusCode == 200) {
       body = JSON.parse(body)
       rply.pageCount = body.pageCount;
+      //var resultCount = body.results.length;
       var resultCount = body.results.length;
-      rply.count = body.totalCount;
-      rply.relatedTags = body.relatedTags;
+      rply.count = body.count;
+     // rply.relatedTags = body.relatedTags;
       function preprocess(i){
         if(i === resultCount){
           return res.send(rply);
         }
         var temp ={};
         var obj = body.results[i];
-        temp.tweet = obj.result.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
-        temp.time = obj.myId.time;
-        temp.imgUrl = obj.imageUrl;
-        temp.sourceUrl = obj.profileUrl
-        var urls = getUrls(obj.result);
-        temp.urls = urls;
+        //temp.tweet = obj.result.replace(/(?:https?|ftp?|http):\/\/[\n\S]+/g, '');
+        temp.time = obj.createdAt;
+        temp.imgUrl = obj.image;
+        temp.sourceUrl = obj.newsUrl
+        temp.title = obj.title
+        //var urls = getUrls(obj.result);
+        //temp.urls = urls;
+        //temp.urls = "" 
         rply.results.push(temp)
         if(i<resultCount){
           preprocess(i+1)
         }
       }
-        
       preprocess(0);
     }
   });

@@ -14,14 +14,15 @@ var Result = React.createClass({
     var three =[];
     var four = [];
     var _this = this;
-    var dummyTag = data.relatedTags.indexOf('ryueidhflmcnxb2345');
-    var relatedTags = data.relatedTags;
-    relatedTags.splice(dummyTag,1);
-    var related = data.relatedTags.map(function(tag, i) {
-      return <a href={"/search/"+tag+"/1"}><div className="r-tag">{tag}</div></a>
-    })
+    //var dummyTag = data.relatedTags.indexOf('ryueidhflmcnxb2345');
+   // var relatedTags = data.relatedTags;
+   //relatedTags.splice(dummyTag,1);
+    //var related = data.relatedTags.map(function(tag, i) {
+     // return <a href={"/search/"+tag+"/1"}><div className="r-tag">{tag}</div></a>
+    //})
     var results = data.results.map(function(r, i){
-      var tweet = '<p>'+r.tweet.replace(/([#][a-zA-Z0-9_]+)/g,'<span class="hashtag">$1</span>')+'</p>';
+      console.log(r)
+      var tweet = '<p>'+r.title.replace(/([#][a-zA-Z0-9_]+)/g,'<span class="hashtag">$1</span>')+'</p>';
       tweet = tweet.replace(/([@][a-zA-Z0-9_]+)/g,'<a target="_blank" href="https://twitter.com/$1"class="at-link">$1</a>');
       var  template = <a href={r.sourceUrl} target="_blank">
         <div className="lr-12 md-12 sm-12">
@@ -49,10 +50,10 @@ var Result = React.createClass({
         temp = 0;
       }
     });
+
     return (
       <div className="results">
-        <div className="count">Found {data.count} results found for <span id="query">"{data.query}"</span></div>
-        <div className="related row">{related.length !== 0 && "Related topics:"}{related}</div>
+      <div className="count"> { data.count } results for <span id="query">"{data.query}"</span></div>
         <div className="row">
           <div className="lr-3 md-3 sm-12 same-row first">{one}</div>
           <div className="lr-3 md-3 sm-12 same-row second">{two}</div>
@@ -64,7 +65,7 @@ var Result = React.createClass({
           <a href={"/search/"+data.query+"/"+(parseInt(data.page) - 1)} className={cn({'hide': this.props.data.page == 1})}>
             <i className="material-icons">chevron_left</i>
           </a>
-          <a href={"/search/"+data.query+"/"+(parseInt(data.page) + 1)} className={cn({'hide': !((this.props.data.page + 1) * 15) > data.count })}>
+          <a href={"/search/"+data.query+"/"+(parseInt(data.page) + 1)} className={cn({'hide': ((this.props.data.page ) * 15) > data.count })}>
             <i className="material-icons">chevron_right</i>
           </a>
           </div>
@@ -72,7 +73,6 @@ var Result = React.createClass({
       </div>
       );
   }
-
 });
 
 module.exports = Result;

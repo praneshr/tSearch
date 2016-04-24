@@ -18,7 +18,7 @@ var Index = React.createClass({
     };
   },
   componentDidMount: function() {
-    console.log('mounted')
+  //  console.log('mounted')
     var _this = this;
     searchStore.addChangeListener(this.onResults);
     this.props.details.query && this.callApi(this.props.details.query, this.props.details.page);
